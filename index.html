@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Исправлен метатег viewport для разрешения прокрутки -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TIME WARRIORS: Master of Tenses</title>
     <style>
         :root {
@@ -28,6 +29,9 @@
         html {
             font-size: 16px;
             height: 100%;
+            /* Разрешаем прокрутку */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         body {
@@ -36,7 +40,9 @@
             color: var(--white);
             min-height: 100vh;
             padding: clamp(10px, 3vw, 20px);
+            /* Разрешаем прокрутку */
             overflow-x: hidden;
+            overflow-y: auto;
             line-height: 1.5;
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
@@ -47,6 +53,8 @@
             max-width: min(1200px, 95vw);
             margin: 0 auto;
             padding: 0 clamp(5px, 2vw, 10px);
+            /* Гарантируем, что контейнер не ограничивает высоту */
+            min-height: auto;
         }
 
         /* Адаптивный заголовок */
@@ -93,6 +101,9 @@
             width: 100%;
             max-width: min(800px, 95vw);
             box-shadow: 0 0 30px rgba(0,255,255,0.2);
+            /* Гарантируем, что меню не ограничивает высоту */
+            min-height: auto;
+            overflow: visible;
         }
 
         .start-menu h2 {
@@ -247,10 +258,14 @@
             padding: clamp(15px, 4vw, 20px);
             border-radius: clamp(12px, 3vw, 15px);
             box-shadow: 0 0 30px rgba(0,255,255,0.1);
-            min-height: min(400px, 70vh);
+            /* Убрано фиксированное min-height */
+            min-height: auto;
             display: none;
             width: 100%;
             margin: 0 auto;
+            /* Разрешаем прокрутку внутри игровой области */
+            overflow-y: auto;
+            max-height: 80vh;
         }
 
         .game-area.active {
@@ -491,6 +506,8 @@
             margin: clamp(15px, 4vw, 20px) 0;
             display: none;
             width: 100%;
+            /* Разрешаем прокрутку внутри результатов */
+            overflow-y: auto;
         }
 
         .final-results h2 {
@@ -570,6 +587,7 @@
             color: var(--light-gray);
             line-height: 1.4;
             word-wrap: break-word;
+            margin-bottom: 20px; /* Добавляем отступ снизу для скролла */
         }
 
         /* Адаптация для очень маленьких экранов */
@@ -614,7 +632,9 @@
             }
             
             .game-area {
-                min-height: 300px;
+                /* В ландшафтном режиме разрешаем прокрутку */
+                max-height: 70vh;
+                overflow-y: auto;
             }
             
             .question {
@@ -671,14 +691,28 @@
             }
         }
 
-        /* Предотвращение масштабирования текста на iOS */
-        @media (max-width: 767px) {
-            html {
-                -webkit-text-size-adjust: none;
+        /* Разрешаем масштабирование текста для доступности */
+        html {
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        /* Улучшенная прокрутка для iOS */
+        .scrollable {
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Гарантируем, что body можно прокручивать */
+        @media (max-height: 700px) {
+            body {
+                overflow-y: scroll;
             }
             
-            body {
-                -webkit-text-size-adjust: none;
+            .start-menu, .game-area, .final-results {
+                margin-bottom: 50px;
             }
         }
 
@@ -974,43 +1008,9 @@
             // Кнопка сброса прогресса
             document.getElementById('reset-all').addEventListener('click', resetAllProgress);
             
-            // Настройка адаптации для мобильных
-            setupMobileAdaptation();
+            // Убираем обработчик, который блокирует прокрутку
+            // setupMobileAdaptation();
         });
-
-        function setupMobileAdaptation() {
-            // Предотвращаем масштабирование на мобильных
-            document.addEventListener('touchmove', function(e) {
-                if(e.scale !== 1) {
-                    e.preventDefault();
-                }
-            }, { passive: false });
-
-            // Улучшаем обработку касаний на мобильных
-            document.addEventListener('touchstart', function() {}, {passive: true});
-            
-            // Обновляем размеры при изменении ориентации
-            window.addEventListener('resize', handleResize);
-            window.addEventListener('orientationchange', handleResize);
-            
-            handleResize();
-        }
-
-        function handleResize() {
-            // Адаптируем размеры элементов под экран
-            const vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-            
-            // Адаптируем размер шрифта для очень маленьких экранов
-            const width = window.innerWidth;
-            if (width < 360) {
-                document.documentElement.style.fontSize = '14px';
-            } else if (width < 768) {
-                document.documentElement.style.fontSize = '15px';
-            } else {
-                document.documentElement.style.fontSize = '16px';
-            }
-        }
 
         function showStartMenu() {
             document.getElementById('start-menu').style.display = 'block';
@@ -1102,12 +1102,6 @@
                 optionDiv.textContent = opt.text;
                 optionDiv.dataset.correct = opt.correct;
                 optionDiv.addEventListener('click', () => checkFinalTestAnswer(optionDiv));
-                optionDiv.addEventListener('touchstart', () => {
-                    optionDiv.style.opacity = '0.8';
-                });
-                optionDiv.addEventListener('touchend', () => {
-                    optionDiv.style.opacity = '1';
-                });
                 optionsContainer.appendChild(optionDiv);
             });
         }
@@ -1311,12 +1305,6 @@
                 optionDiv.textContent = opt.text;
                 optionDiv.dataset.correct = opt.correct;
                 optionDiv.addEventListener('click', () => checkAnswer(tabId, optionDiv));
-                optionDiv.addEventListener('touchstart', () => {
-                    optionDiv.style.opacity = '0.8';
-                });
-                optionDiv.addEventListener('touchend', () => {
-                    optionDiv.style.opacity = '1';
-                });
                 optionsContainer.appendChild(optionDiv);
             });
         }
