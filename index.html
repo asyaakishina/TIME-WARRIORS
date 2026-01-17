@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>TIME WARRIORS: Master of Tenses</title>
     <style>
         :root {
@@ -21,26 +21,41 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            height: 100%;
         }
 
         body {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-attachment: fixed;
             color: var(--white);
             min-height: 100vh;
-            padding: 20px;
+            padding: clamp(10px, 3vw, 20px);
             overflow-x: hidden;
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 1200px;
+            width: 100%;
+            max-width: min(1200px, 95vw);
             margin: 0 auto;
+            padding: 0 clamp(5px, 2vw, 10px);
         }
 
+        /* Адаптивный заголовок */
         header {
             text-align: center;
-            padding: 20px;
+            padding: clamp(15px, 4vw, 20px) 10px;
             animation: pulse 2s infinite alternate;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         @keyframes pulse {
@@ -49,62 +64,94 @@
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
             color: var(--neon);
             text-shadow: 0 0 10px var(--neon);
-            margin-bottom: 10px;
+            margin-bottom: clamp(8px, 2vw, 10px);
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            word-break: break-word;
         }
 
         .subtitle {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
             color: var(--pink);
-            margin-bottom: 20px;
+            margin-bottom: clamp(15px, 4vw, 20px);
+            line-height: 1.3;
+            font-weight: 500;
+            padding: 0 10px;
         }
 
+        /* Начальное меню */
         .start-menu {
             text-align: center;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px) clamp(15px, 4vw, 20px);
             background: rgba(0,0,0,0.5);
-            border-radius: 20px;
-            margin: 40px auto;
-            max-width: 800px;
+            border-radius: clamp(15px, 4vw, 20px);
+            margin: clamp(15px, 4vw, 40px) auto;
+            width: 100%;
+            max-width: min(800px, 95vw);
             box-shadow: 0 0 30px rgba(0,255,255,0.2);
         }
 
         .start-menu h2 {
             color: var(--gold);
-            margin-bottom: 30px;
-            font-size: 2rem;
+            margin-bottom: clamp(20px, 5vw, 30px);
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            line-height: 1.2;
+            word-wrap: break-word;
+            padding: 0 10px;
         }
 
         .menu-description {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 40px;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            line-height: 1.5;
+            margin-bottom: clamp(20px, 5vw, 40px);
             color: var(--light-gray);
+            text-align: center;
+            padding: 0 clamp(10px, 3vw, 20px);
+        }
+
+        .menu-description p {
+            margin-bottom: clamp(10px, 3vw, 15px);
         }
 
         .start-buttons {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 30px;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(15px, 4vw, 20px);
+            margin-bottom: clamp(20px, 5vw, 30px);
+            width: 100%;
         }
 
         .start-btn {
-            padding: 18px 32px;
+            padding: clamp(15px, 4vw, 18px) clamp(20px, 5vw, 32px);
             background: linear-gradient(45deg, var(--neon), var(--pink));
             color: var(--primary);
             border: none;
-            border-radius: 12px;
+            border-radius: clamp(10px, 3vw, 12px);
             cursor: pointer;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
             transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             box-shadow: 0 5px 15px rgba(0, 247, 255, 0.3);
+            width: 100%;
+            max-width: min(400px, 90vw);
+            min-height: clamp(50px, 10vw, 60px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .start-btn:active {
+            transform: translateY(-2px);
         }
 
         .start-btn:hover {
@@ -115,38 +162,49 @@
 
         .start-btn.final-test {
             background: linear-gradient(45deg, var(--gold), #ff9900);
-            font-size: 1.3rem;
-            padding: 20px 40px;
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            padding: clamp(16px, 4.5vw, 20px) clamp(25px, 6vw, 40px);
         }
 
-        .start-btn.final-test:hover {
-            background: linear-gradient(45deg, #ff9900, var(--gold));
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.5);
-        }
-
+        /* Основное меню с вкладками */
         .main-menu {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: clamp(8px, 2vw, 10px);
             justify-content: center;
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 5vw, 30px);
             background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 15px;
+            padding: clamp(12px, 3vw, 15px);
+            border-radius: clamp(12px, 3vw, 15px);
             box-shadow: 0 0 20px rgba(0,255,255,0.2);
             display: none;
         }
 
         .tab {
-            padding: 12px 20px;
+            padding: clamp(10px, 2.5vw, 12px) clamp(15px, 3vw, 20px);
             background: var(--accent);
             border: 2px solid var(--neon);
-            border-radius: 10px;
+            border-radius: clamp(8px, 2vw, 10px);
             cursor: pointer;
             transition: all 0.3s ease;
             font-weight: bold;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            text-align: center;
+            flex: 1 0 calc(33.333% - 20px);
+            min-width: 120px;
+            max-width: 200px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab:active {
+            transform: translateY(-1px);
         }
 
         .tab:hover, .tab.active {
@@ -158,29 +216,41 @@
 
         .back-to-menu {
             display: block;
-            margin: 20px auto;
-            padding: 12px 24px;
+            margin: clamp(15px, 4vw, 20px) auto;
+            padding: clamp(10px, 3vw, 12px) clamp(20px, 4vw, 24px);
             background: var(--gray);
             color: var(--white);
             border: 2px solid var(--light-gray);
-            border-radius: 8px;
+            border-radius: clamp(6px, 2vw, 8px);
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
+            width: 100%;
+            max-width: min(250px, 80vw);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            min-height: 45px;
+        }
+
+        .back-to-menu:active {
+            transform: scale(0.98);
         }
 
         .back-to-menu:hover {
             background: var(--light-gray);
             color: var(--primary);
+            transform: scale(1.02);
         }
 
+        /* Игровая область */
         .game-area {
             background: rgba(0,0,0,0.5);
-            padding: 20px;
-            border-radius: 15px;
+            padding: clamp(15px, 4vw, 20px);
+            border-radius: clamp(12px, 3vw, 15px);
             box-shadow: 0 0 30px rgba(0,255,255,0.1);
-            min-height: 400px;
+            min-height: min(400px, 70vh);
             display: none;
+            width: 100%;
+            margin: 0 auto;
         }
 
         .game-area.active {
@@ -189,10 +259,10 @@
 
         .progress-bar {
             width: 100%;
-            height: 10px;
+            height: clamp(8px, 2vw, 10px);
             background: var(--gray);
-            border-radius: 5px;
-            margin: 20px 0;
+            border-radius: clamp(4px, 1.5vw, 5px);
+            margin: clamp(15px, 4vw, 20px) 0;
             overflow: hidden;
         }
 
@@ -205,45 +275,86 @@
 
         .test-progress {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
-            font-size: 1.1rem;
+            flex-direction: column;
+            gap: 10px;
+            margin: clamp(15px, 4vw, 20px) 0;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+        }
+
+        @media (min-width: 480px) {
+            .test-progress {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
 
         .question-counter {
             background: rgba(0,255,255,0.1);
-            padding: 8px 16px;
+            padding: clamp(6px, 2vw, 8px) clamp(12px, 3vw, 16px);
             border-radius: 20px;
             font-weight: bold;
+            text-align: center;
+            white-space: nowrap;
         }
 
         .question {
-            font-size: 1.5rem;
-            margin: 20px 0;
-            padding: 20px;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            margin: clamp(15px, 4vw, 20px) 0;
+            padding: clamp(15px, 4vw, 20px);
             background: rgba(255,255,255,0.1);
-            border-radius: 10px;
+            border-radius: clamp(8px, 2vw, 10px);
             text-align: center;
             box-shadow: 0 0 15px rgba(0,255,255,0.1);
+            line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: 1fr;
+            gap: clamp(10px, 3vw, 15px);
+            margin: clamp(15px, 4vw, 20px) 0;
+        }
+
+        @media (min-width: 480px) {
+            .options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .options {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
         }
 
         .option {
-            padding: 15px;
+            padding: clamp(12px, 3vw, 15px);
             background: var(--accent);
             border: 2px solid transparent;
-            border-radius: 10px;
+            border-radius: clamp(8px, 2vw, 10px);
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            line-height: 1.3;
+            user-select: none;
+        }
+
+        .option:active {
+            transform: scale(0.98);
         }
 
         .option:hover {
@@ -266,43 +377,74 @@
         }
 
         @keyframes correct {
-            0% { transform: scale(0.9); }
-            50% { transform: scale(1.1); }
+            0% { transform: scale(0.95); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
 
         @keyframes wrong {
-            0% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-            100% { transform: rotate(0deg); }
+            0% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
         }
 
         .hint {
-            margin-top: 20px;
-            padding: 15px;
+            margin-top: clamp(15px, 4vw, 20px);
+            padding: clamp(12px, 3vw, 15px);
             background: rgba(0,255,255,0.1);
             border-left: 5px solid var(--neon);
-            border-radius: 5px;
+            border-radius: clamp(4px, 1.5vw, 5px);
             display: none;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            line-height: 1.4;
+            word-wrap: break-word;
         }
 
         .stats {
             display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
-            font-size: 1.1rem;
+            flex-direction: column;
+            gap: 10px;
+            margin: clamp(15px, 4vw, 20px) 0;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+        }
+
+        @media (min-width: 480px) {
+            .stats {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .stats span {
+            background: rgba(255,255,255,0.1);
+            padding: clamp(8px, 2vw, 10px);
+            border-radius: clamp(6px, 2vw, 8px);
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
         }
 
         .btn {
-            padding: 12px 24px;
+            padding: clamp(10px, 3vw, 12px) clamp(15px, 4vw, 24px);
             background: var(--neon);
             color: var(--primary);
             border: none;
-            border-radius: 8px;
+            border-radius: clamp(6px, 2vw, 8px);
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            margin: 10px;
+            margin: clamp(5px, 2vw, 10px);
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            min-height: 45px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
         }
 
         .btn:hover {
@@ -322,65 +464,78 @@
 
         .level-complete {
             text-align: center;
-            padding: 30px;
+            padding: clamp(20px, 5vw, 30px);
             background: rgba(0,255,255,0.1);
-            border-radius: 15px;
+            border-radius: clamp(12px, 3vw, 15px);
             display: none;
+            width: 100%;
         }
 
         .level-complete h2 {
             color: var(--gold);
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin-bottom: clamp(10px, 3vw, 10px);
+            line-height: 1.2;
         }
 
         .level-complete p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            margin-bottom: clamp(15px, 4vw, 20px);
         }
 
         .final-results {
             text-align: center;
-            padding: 40px;
+            padding: clamp(25px, 6vw, 40px);
             background: rgba(0,0,0,0.7);
-            border-radius: 20px;
-            margin: 20px 0;
+            border-radius: clamp(15px, 4vw, 20px);
+            margin: clamp(15px, 4vw, 20px) 0;
             display: none;
+            width: 100%;
         }
 
         .final-results h2 {
             color: var(--gold);
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
+            margin-bottom: clamp(15px, 4vw, 20px);
+            line-height: 1.2;
+            word-wrap: break-word;
         }
 
         .final-score {
-            font-size: 4rem;
+            font-size: clamp(2.5rem, 10vw, 4rem);
             font-weight: bold;
             color: var(--neon);
-            margin: 20px 0;
+            margin: clamp(15px, 4vw, 20px) 0;
             text-shadow: 0 0 20px var(--neon);
+            line-height: 1;
         }
 
         .grade {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             color: var(--pink);
-            margin-bottom: 30px;
+            margin-bottom: clamp(20px, 5vw, 30px);
             font-weight: bold;
+            line-height: 1.3;
         }
 
         .result-details {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: clamp(10px, 3vw, 15px);
+            margin: clamp(20px, 5vw, 30px) 0;
         }
 
         .result-item {
             background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
+            padding: clamp(10px, 3vw, 12px) clamp(8px, 2vw, 10px);
+            border-radius: clamp(8px, 2vw, 10px);
             text-align: center;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+            min-height: 70px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            word-wrap: break-word;
         }
 
         .confetti {
@@ -395,8 +550,8 @@
 
         .confetti-piece {
             position: absolute;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: var(--neon);
             animation: fall 3s linear forwards;
         }
@@ -409,19 +564,143 @@
 
         .footer {
             text-align: center;
-            margin-top: 30px;
-            padding: 10px;
-            font-size: 0.9rem;
+            margin-top: clamp(20px, 5vw, 30px);
+            padding: clamp(8px, 2vw, 10px);
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             color: var(--light-gray);
+            line-height: 1.4;
+            word-wrap: break-word;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            .start-btn { padding: 15px 25px; font-size: 1rem; }
-            .tab { padding: 10px 15px; font-size: 0.9rem; }
-            .options { grid-template-columns: 1fr; }
-            .final-score { font-size: 3rem; }
+        /* Адаптация для очень маленьких экранов */
+        @media (max-width: 360px) {
+            html {
+                font-size: 14px;
+            }
+            
+            .tab {
+                flex: 1 0 calc(50% - 10px);
+                min-width: 100px;
+                font-size: 0.7rem;
+                padding: 8px 10px;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+                padding: 12px;
+                min-height: 70px;
+            }
+            
+            .option {
+                font-size: 0.9rem;
+                padding: 10px;
+                min-height: 55px;
+            }
+        }
+
+        /* Ландшафтная ориентация на мобильных */
+        @media (orientation: landscape) and (max-height: 600px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            .start-menu {
+                padding: 15px 10px;
+                margin: 10px auto;
+            }
+            
+            .game-area {
+                min-height: 300px;
+            }
+            
+            .question {
+                font-size: 1.2rem;
+                padding: 10px;
+                min-height: 60px;
+            }
+            
+            .option {
+                padding: 10px;
+                min-height: 50px;
+                font-size: 0.9rem;
+            }
+            
+            .main-menu {
+                padding: 10px;
+            }
+            
+            .tab {
+                flex: 1 0 calc(25% - 10px);
+                font-size: 0.7rem;
+                min-height: 40px;
+            }
+        }
+
+        /* Планшеты */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                max-width: 90vw;
+            }
+            
+            .start-btn {
+                max-width: 350px;
+            }
+            
+            .tab {
+                flex: 1 0 calc(25% - 10px);
+            }
+        }
+
+        /* Десктоп */
+        @media (min-width: 1024px) {
+            .container {
+                max-width: 1200px;
+            }
+            
+            body {
+                padding: 30px;
+            }
+            
+            .tab {
+                flex: 1 0 calc(16.666% - 10px);
+                max-width: 150px;
+            }
+        }
+
+        /* Предотвращение масштабирования текста на iOS */
+        @media (max-width: 767px) {
+            html {
+                -webkit-text-size-adjust: none;
+            }
+            
+            body {
+                -webkit-text-size-adjust: none;
+            }
+        }
+
+        /* Улучшенная обработка касаний */
+        @media (hover: none) {
+            .btn:hover, .start-btn:hover, .tab:hover, .option:hover, .back-to-menu:hover {
+                transform: none;
+            }
+            
+            .btn:active, .start-btn:active, .tab:active, .option:active, .back-to-menu:active {
+                transform: scale(0.95);
+            }
+        }
+
+        /* Поддержка темной темы */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #0a081f;
+                --secondary: #1e1a40;
+                --accent: #1a1830;
+                --gray: #222;
+            }
         }
     </style>
 </head>
@@ -464,10 +743,10 @@
             <button class="back-to-menu" id="back-to-main">← Назад в меню</button>
         </div>
 
-        <!-- Все игровые области -->
+        <!-- Игровые области -->
         <div id="present-simple" class="game-area">
             <div class="progress-bar"><div class="progress-fill" id="present-simple-progress"></div></div>
-            <div class="question" id="present-simple-question">Loading...</div>
+            <div class="question" id="present-simple-question">Загрузка...</div>
             <div class="options" id="present-simple-options"></div>
             <div class="hint" id="present-simple-hint"></div>
             <div class="stats">
@@ -483,26 +762,6 @@
             </div>
         </div>
 
-        <!-- Добавлены остальные игровые области (для краткости показываю структуру) -->
-        <div id="present-continuous" class="game-area">
-            <!-- Аналогично предыдущему -->
-            <div class="progress-bar"><div class="progress-fill" id="present-continuous-progress"></div></div>
-            <div class="question" id="present-continuous-question">Loading...</div>
-            <div class="options" id="present-continuous-options"></div>
-            <div class="hint" id="present-continuous-hint"></div>
-            <div class="stats">
-                <span>Правильно: <span id="present-continuous-correct">0</span></span>
-                <span>Всего: <span id="present-continuous-total">0</span></span>
-            </div>
-            <button class="btn btn-next" id="present-continuous-next">Следующий вопрос</button>
-            <div class="level-complete" id="present-continuous-level-complete">
-                <h2>🎉 Уровень пройден!</h2>
-                <p>Вы отлично справились с Present Continuous!</p>
-                <button class="btn btn-next-level" data-next="present-perfect">Перейти к следующему</button>
-                <button class="btn back-to-menu">Вернуться в меню</button>
-            </div>
-        </div>
-
         <!-- Финальный тест -->
         <div id="final-test" class="game-area">
             <div class="progress-bar"><div class="progress-fill" id="final-test-progress"></div></div>
@@ -510,7 +769,7 @@
                 <div class="question-counter">Вопрос <span id="current-question">1</span> из <span id="total-questions">100</span></div>
                 <div>Правильно: <span id="final-test-correct">0</span></div>
             </div>
-            <div class="question" id="final-test-question">Loading...</div>
+            <div class="question" id="final-test-question">Загрузка...</div>
             <div class="options" id="final-test-options"></div>
             <div class="hint" id="final-test-hint"></div>
             <button class="btn btn-next" id="final-test-next">Следующий вопрос</button>
@@ -714,7 +973,44 @@
             
             // Кнопка сброса прогресса
             document.getElementById('reset-all').addEventListener('click', resetAllProgress);
+            
+            // Настройка адаптации для мобильных
+            setupMobileAdaptation();
         });
+
+        function setupMobileAdaptation() {
+            // Предотвращаем масштабирование на мобильных
+            document.addEventListener('touchmove', function(e) {
+                if(e.scale !== 1) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Улучшаем обработку касаний на мобильных
+            document.addEventListener('touchstart', function() {}, {passive: true});
+            
+            // Обновляем размеры при изменении ориентации
+            window.addEventListener('resize', handleResize);
+            window.addEventListener('orientationchange', handleResize);
+            
+            handleResize();
+        }
+
+        function handleResize() {
+            // Адаптируем размеры элементов под экран
+            const vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            
+            // Адаптируем размер шрифта для очень маленьких экранов
+            const width = window.innerWidth;
+            if (width < 360) {
+                document.documentElement.style.fontSize = '14px';
+            } else if (width < 768) {
+                document.documentElement.style.fontSize = '15px';
+            } else {
+                document.documentElement.style.fontSize = '16px';
+            }
+        }
 
         function showStartMenu() {
             document.getElementById('start-menu').style.display = 'block';
@@ -806,6 +1102,12 @@
                 optionDiv.textContent = opt.text;
                 optionDiv.dataset.correct = opt.correct;
                 optionDiv.addEventListener('click', () => checkFinalTestAnswer(optionDiv));
+                optionDiv.addEventListener('touchstart', () => {
+                    optionDiv.style.opacity = '0.8';
+                });
+                optionDiv.addEventListener('touchend', () => {
+                    optionDiv.style.opacity = '1';
+                });
                 optionsContainer.appendChild(optionDiv);
             });
         }
@@ -1009,6 +1311,12 @@
                 optionDiv.textContent = opt.text;
                 optionDiv.dataset.correct = opt.correct;
                 optionDiv.addEventListener('click', () => checkAnswer(tabId, optionDiv));
+                optionDiv.addEventListener('touchstart', () => {
+                    optionDiv.style.opacity = '0.8';
+                });
+                optionDiv.addEventListener('touchend', () => {
+                    optionDiv.style.opacity = '1';
+                });
                 optionsContainer.appendChild(optionDiv);
             });
         }
@@ -1156,5 +1464,4 @@
         showStartMenu();
     </script>
 </body>
-
 </html>
